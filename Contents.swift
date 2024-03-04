@@ -35,3 +35,51 @@ game.startGame()
 
 //2
 
+class Parent {
+    var name: String
+    var delegate: CanCleanHouse?
+    
+    init(name: String) {
+        self.name = name
+    }
+    func cleanHouse() {
+        print("function was called")
+        delegate?.cleanHouse()
+    }
+    
+}
+protocol CanCleanHouse {
+    func cleanHouse()
+}
+
+class Child: CanCleanHouse {
+    var name: String
+    var delegate: CanCleanHouse?
+    
+    init(name: String) {
+        self.name = name
+    }
+    func cleanHouse() {
+        print("\(name) is cleaning the house")
+        
+        delegate?.cleanHouse()
+    }
+}
+    class Sister: CanCleanHouse {
+        var name: String
+        var delegate: CanCleanHouse?
+        
+        init(name: String) {
+            self.name = name
+        }
+        func cleanHouse() {
+            print("Asti sister is cleaning the house")
+        }
+    }
+
+ let child = Child(name: "Asti")
+let mother = Parent(name: "Assol")
+let sister = Sister(name: "Anel")
+mother.delegate = child
+child.delegate = sister
+mother.cleanHouse()
